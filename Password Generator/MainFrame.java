@@ -1,3 +1,6 @@
+//java --enable-preview -jar pwGen.jar
+
+
 import java.awt.*;
 import java.awt.event.*;
 import java.io.BufferedWriter;
@@ -15,11 +18,8 @@ import java.util.Random;
 public class MainFrame extends JFrame {
 
     private JLabel Heading = new JLabel();
-    private JTable PasswordTab = new JTable(5, 2);
-    private DefaultTableModel PasswordTabModel = (DefaultTableModel) PasswordTab.getModel();
-    private JScrollPane PasswordTabScrollPane = new JScrollPane(PasswordTab);
     private JButton NewPassword = new JButton();
-    private JButton Aktualisieren = new JButton();
+    private JButton Table = new JButton();
     
 
     public MainFrame() {
@@ -56,65 +56,27 @@ public class MainFrame extends JFrame {
         });
         cp.add(NewPassword);
 
-        Aktualisieren.setBounds(280, 350, 75, 25);
-        Aktualisieren.setText("Neues Passwort");
-        Aktualisieren.setMargin(new Insets(2, 2, 2, 2));
-        Aktualisieren.addActionListener(new ActionListener() { 
+        Table.setBounds(880, 350, 75, 25);
+        Table.setText("Table");
+        Table.setMargin(new Insets(2, 2, 2, 2));
+        Table.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent evt) { 
-                Aktualisieren_ActionPerformed(evt);
+                Table_ActionPerformed(evt);
             }
         });
-        cp.add(Aktualisieren);
-
-        PasswordTabScrollPane.setBounds(50, 56, 1820, 150);
-        PasswordTab.getColumnModel().getColumn(0).setHeaderValue("Aktivität");
-        PasswordTab.getColumnModel().getColumn(0).setPreferredWidth(250);
-        PasswordTab.getColumnModel().getColumn(1).setHeaderValue("Password");
-        PasswordTab.getColumnModel().getColumn(1).setPreferredWidth(1570);
-        cp.add(PasswordTabScrollPane);
+        cp.add(Table);
 
         setVisible(true);
     }
     public static void main(String [] args) throws IOException{
-
         new MainFrame();
-        String AktivitaetStrings = QuestionFrame.AktivitaetString;
-        String randomStrings = QuestionFrame.randomString;
-        BufferedWriter bufferedWriter = null;
-        try {
-            bufferedWriter = new BufferedWriter(new FileWriter("saver", true));
-            bufferedWriter.write("\n" + AktivitaetStrings + ": " + randomStrings);
-            
-        } catch (IOException e) {
-            System.out.println("Exception occurred: " + e.getMessage());
-
-        } finally {
-            if (bufferedWriter != null)
-                bufferedWriter.close();
-        }
 
     }
     
     public void NewPassword_ActionPerformed(ActionEvent evt) {
-        
-        System.exit(0);
         new QuestionFrame();
     }
-    public static void Aktualisieren_ActionPerformed(ActionEvent evt) {
-
-        /*String AktivitaetStrings = QuestionFrame.AktivitaetString;
-        String randomStrings = QuestionFrame.randomString;
-        BufferedWriter bufferedWriter = null;
-        try {
-            bufferedWriter = new BufferedWriter(new FileWriter("saver", true));
-            bufferedWriter.write("\n" + AktivitaetStrings + ": " + randomStrings);
-            
-        } catch (IOException e) {
-            System.out.println("Exception occurred: " + e.getMessage());
-
-        } finally {
-            if (bufferedWriter != null)
-                bufferedWriter.close();
-        }*/
+    public void Table_ActionPerformed(ActionEvent evt) {
+        new TabelleFrame();
     }
 }

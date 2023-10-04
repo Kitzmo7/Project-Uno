@@ -59,7 +59,10 @@ public class QuestionFrame extends JFrame implements FocusListener{
     public static void main(String [] args) throws IOException{
 
         new QuestionFrame();
-
+    
+    }
+    public void generate_ActionPerformed(ActionEvent evt) {
+        
         String upperAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         String lowerAlphabet = "abcdefghijklmnopqrstuvwxyz";
         String numbers = "0123456789";
@@ -79,17 +82,35 @@ public class QuestionFrame extends JFrame implements FocusListener{
         }
 
         randomString = sb.toString();
-    
-    }
-    public void generate_ActionPerformed(ActionEvent evt) {
-        
         
        AktivitaetString = AktivitaetField.getText();
        
 
        if(!AktivitaetString.isEmpty()){
         dispose();
-        new MainFrame();
+
+        try(BufferedWriter wr = new BufferedWriter(new FileWriter("aktivitaet", true))) {
+            wr.write("\n" + AktivitaetString);
+            
+        } 
+        catch (IOException e) {
+            System.out.println("Exception occurred: " + e.getMessage());
+
+        }
+
+        try(BufferedWriter wr = new BufferedWriter(new FileWriter("pw", true))) {
+            wr.write("\n" + randomString);
+            
+        } 
+        catch (IOException e) {
+            System.out.println("Exception occurred: " + e.getMessage());
+
+        }
+
+
+
+        new TabelleFrame();
+        
        }
        else{ 
         new FehlerCodeFrame();
