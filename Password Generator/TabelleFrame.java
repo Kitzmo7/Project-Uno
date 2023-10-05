@@ -16,8 +16,12 @@ import java.util.Random;
 public class TabelleFrame extends JFrame {
     public static String text = "";
     public static int counting = 0;
+    public static int max = 0;
     private JButton Password = new JButton();
-    
+    private JButton schButton = new JButton();
+    JTable jTable1 = new JTable();
+    DefaultTableModel jTable = (DefaultTableModel) jTable1.getModel();
+    JScrollPane jTable1ScrollPane = new JScrollPane(jTable1);
 
     public TabelleFrame(){
 
@@ -49,14 +53,23 @@ public class TabelleFrame extends JFrame {
         });
         cp.add(Password);
 
+        schButton.setBounds(880, 750, 75, 25);
+        schButton.setText("Schreiben");
+        schButton.setMargin(new Insets(2, 2, 2, 2));
+        schButton.addActionListener(new ActionListener() { 
+            public void actionPerformed(ActionEvent evt) { 
+                schButton_ActionPerformed(evt);
+            }
+        });
+        cp.add(schButton);
 
 
 
         zeilenCount();
         
-        JTable jTable1 = new JTable(counting, 2);
-        DefaultTableModel jTable = (DefaultTableModel) jTable1.getModel();
-        JScrollPane jTable1ScrollPane = new JScrollPane(jTable1);
+        
+        jTable.setRowCount(counting);
+        jTable.setColumnCount(2);
 
         jTable1ScrollPane.setBounds(8, 144, 800, 500);
         jTable1.getColumnModel().getColumn(0).setHeaderValue("Aktivitaet");
@@ -66,7 +79,7 @@ public class TabelleFrame extends JFrame {
 
         int rowCount = jTable.getRowCount();
 
-        int max = rowCount;
+        max = rowCount;
         max--;
         for(int c = 0; c <= max; c++){
             aktivitaetLesen(c);
@@ -88,6 +101,10 @@ public class TabelleFrame extends JFrame {
         }
         cp.add(jTable1ScrollPane);
         
+        //selber pw eintragen
+        
+
+
         setVisible(true);
        
 
@@ -159,11 +176,33 @@ public class TabelleFrame extends JFrame {
         }
     }
 
-    public static void schreiben(){
-        
-    }
+
     public void Password_ActionPerformed(ActionEvent evt) {
         dispose();
         new QuestionFrame();
+    }
+    public void schButton_ActionPerformed(ActionEvent evt) {
+        Object sValue = jTable1.getValueAt(max, 0);
+        String scValue = (String) sValue;
+        
+        try(BufferedWriter wr = new BufferedWriter(new FileWriter("aktivitaet", true))){
+            wr.write("\n"+ scValue);
+        }
+        catch (IOException e) {
+            System.out.println("Exception occurred: " + e.getMessage());
+
+        }
+        Object sPwValue = jTable1.getValueAt(max, 1);
+        String scPwValue = (String) sPwValue;
+        
+        try(BufferedWriter wr = new BufferedWriter(new FileWriter("pw", true))){
+            wr.write("\n"+ scPwValue);
+        }
+        catch (IOException e) {
+            System.out.println("Exception occurred: " + e.getMessage());
+
+        }
+        dispose();
+        new TabelleFrame();
     }
 }
