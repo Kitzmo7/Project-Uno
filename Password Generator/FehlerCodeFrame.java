@@ -23,6 +23,7 @@ public class FehlerCodeFrame extends JFrame{
         setLocation(x, y);
         setTitle("Password Generator");
         setResizable(false);
+        
         Container cp = getContentPane();
         cp.setLayout(null);
 
@@ -52,5 +53,6 @@ public class FehlerCodeFrame extends JFrame{
     }
     public void bestaetigungButton_ActionPerformed(ActionEvent evt){
         dispose();
+        new TabelleFrame();
     }
 }

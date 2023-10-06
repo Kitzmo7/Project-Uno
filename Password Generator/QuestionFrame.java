@@ -89,7 +89,7 @@ public class QuestionFrame extends JFrame implements FocusListener{
        if(!AktivitaetString.isEmpty()){
         dispose();
 
-        try(BufferedWriter wr = new BufferedWriter(new FileWriter("aktivitaet", true))) {
+        try(BufferedWriter wr = new BufferedWriter(new FileWriter("data\\aktivitaet", true))) {
             wr.write("\n" + AktivitaetString);
             
         } 
@@ -98,7 +98,7 @@ public class QuestionFrame extends JFrame implements FocusListener{
 
         }
 
-        try(BufferedWriter wr = new BufferedWriter(new FileWriter("pw", true))) {
+        try(BufferedWriter wr = new BufferedWriter(new FileWriter("data\\pw", true))) {
             wr.write("\n" + randomString);
             
         } 
