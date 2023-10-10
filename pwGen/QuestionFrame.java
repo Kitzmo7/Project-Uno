@@ -56,13 +56,13 @@ public class QuestionFrame extends JFrame implements FocusListener{
 
         setVisible(true);
     }
-    public static void main(String [] args) throws IOException{
+    public static void main(String [] args) {
 
-        new QuestionFrame();
+        //new QuestionFrame();
+        
     
     }
     public void generate_ActionPerformed(ActionEvent evt) {
-        
         String upperAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         String lowerAlphabet = "abcdefghijklmnopqrstuvwxyz";
         String numbers = "0123456789";
@@ -87,7 +87,7 @@ public class QuestionFrame extends JFrame implements FocusListener{
        
 
        if(!AktivitaetString.isEmpty()){
-        dispose();
+      
 
         try(BufferedWriter wr = new BufferedWriter(new FileWriter("data\\aktivitaet", true))) {
             wr.write("\n" + AktivitaetString);
@@ -106,15 +106,13 @@ public class QuestionFrame extends JFrame implements FocusListener{
             System.out.println("Exception occurred: " + e.getMessage());
 
         }
-
-
-
-        new TabelleFrame();
-        
+        dispose();
+        new MainFrame();
        }
        else{ 
         new FehlerCodeFrame();
        }
+        
        
 	}
 

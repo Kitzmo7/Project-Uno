@@ -53,6 +53,6 @@ public class FehlerCodeFrame extends JFrame{
     }
     public void bestaetigungButton_ActionPerformed(ActionEvent evt){
         dispose();
-        new TabelleFrame();
+        new MainFrame();
     }
 }
