@@ -13,9 +13,11 @@ public class jFrameConfig {
     public static JButton seekButton = new JButton();
     private static Component glue = Box.createHorizontalGlue();
     private static MouseListener mouseListener = new MouseAdapter() {};
-    private static ImageIcon seekButIcon2 = new ImageIcon("images\\seekIcon2.png");
     private static ImageIcon butIcon = new ImageIcon("images\\tableTabIcon1.png");
     private static ImageIcon butIcon2 = new ImageIcon("images\\tableTabIcon2.png"); //#C0C0C0
+    private static ImageIcon seekButIcon = new ImageIcon("images\\seekIcon1.png");
+    private static ImageIcon seekButIcon2 = new ImageIcon("images\\seekIcon2.png"); 
+    public static JTextField seekField = new JTextField();
     public static void main(String [] args){
 
     }
@@ -53,10 +55,8 @@ public class jFrameConfig {
 
     public static void tabelleFrameButtonConfiguration(){
 
-        ImageIcon butIcon = new ImageIcon("images\\tableTabIcon1.png");
-        ImageIcon butIcon2 = new ImageIcon("images\\tableTabIcon2.png"); //#C0C0C0
         TabelleFrame.tabelTab.setBounds(0, 35, 75, 75);
-        TabelleFrame.tabelTab.setIcon(butIcon);
+        TabelleFrame.tabelTab.setIcon(butIcon2);
         TabelleFrame.tabelTab.setMargin(new Insets(2, 2, 2, 2));
         TabelleFrame.tabelTab.setOpaque(false);
         TabelleFrame.tabelTab.setBorderPainted(false);
@@ -132,35 +132,30 @@ public class jFrameConfig {
         TabelleFrame.jMenuBar.add(glue);
         TabelleFrame.jMenuBar.add(TabelleFrame.exitButton);
 
-        ImageIcon seekButIcon = new ImageIcon("images\\seekIcon1.png");
-        ImageIcon seekButIcon2 = new ImageIcon("images\\seekIcon2.png"); //#C0C0C0
+         //#C0C0C0
         seekButton.setBounds(0, 120, 75, 75);
         seekButton.setIcon(seekButIcon);
         seekButton.setMargin(new Insets(2, 2, 2, 2));
         seekButton.setOpaque(false);
         seekButton.setBorderPainted(false);
         seekButton.setContentAreaFilled(false);
-        seekButton.addMouseListener(new java.awt.event.MouseAdapter() {
+        /*seekButton.addMouseListener(new java.awt.event.MouseAdapter() {
         public void mouseEntered(java.awt.event.MouseEvent evt) {
-                //TabelleFrame.tabelTab.setContentAreaFilled(true);
+                
                 seekButton.setIcon(seekButIcon2);
             }
         
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                //TabelleFrame.tabelTab.setBackground(UIManager.getColor("control"));
+                
                 seekButton.setIcon(seekButIcon);
-                //TabelleFrame.tabelTab.setContentAreaFilled(false);
+    
             }
-        });
-        
-
-
-        
-        
+        }); */
+        seekHover();
     }
     public static void tabelleFrameTableConfiguration(){
         TabelleFrame.jTable1ScrollPane.setBounds(400, 75, 1395, 880);
-        TabelleFrame.jTable1.getColumnModel().getColumn(0).setHeaderValue("null");
+        TabelleFrame.jTable1.getColumnModel().getColumn(0).setHeaderValue("Aktivitaet");
         TabelleFrame.jTable1.getColumnModel().getColumn(1).setHeaderValue("Password");
         TabelleFrame.jTable1.getColumnModel().getColumn(0).setResizable(false);
         TabelleFrame.jTable1.getColumnModel().getColumn(1).setResizable(false);
@@ -185,7 +180,8 @@ public class jFrameConfig {
         TabelleFrame.jTable1ScrollPane.setVisible(true);
     }
     public static void explorerHover(){
-        MouseListener mouseListener = new MouseAdapter() {
+
+        mouseListener = new MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 //TabelleFrame.tabelTab.setContentAreaFilled(true);
                 TabelleFrame.tabelTab.setIcon(butIcon2);
@@ -199,12 +195,27 @@ public class jFrameConfig {
         };
         TabelleFrame.tabelTab.addMouseListener(mouseListener);
     }
-    public static void removeExplorerHover(){
-        TabelleFrame.tabelTab.removeMouseListener(mouseListener);
+
+    public static void seekHover(){
+        mouseListener = new MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                //TabelleFrame.tabelTab.setContentAreaFilled(true);
+                seekButton.setIcon(seekButIcon2);
+            }
+        
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                //TabelleFrame.tabelTab.setBackground(UIManager.getColor("control"));
+                seekButton.setIcon(seekButIcon);
+                //TabelleFrame.tabelTab.setContentAreaFilled(false);
+            }
+        };
+        seekButton.addMouseListener(mouseListener);
     }
 
     public static void ToSeek(){
+        TabelleFrame.tabelTab.setIcon(butIcon);
         explorerHover();
+        seekButton.removeMouseListener(mouseListener);
         seekButton.setIcon(seekButIcon2);
         TabelleFrame.schButton.setVisible(false);
         TabelleFrame.newPwbut.setVisible(false);
@@ -212,10 +223,14 @@ public class jFrameConfig {
         explorerJLabel.setText("SUCHEN");                               //hier krachts
     }
     public static void ToExplorer(){
-        removeExplorerHover();
-        TabelleFrame.tabelTab.setIcon(butIcon2);
+        seekHover();
+        seekButton.setIcon(seekButIcon);
         tabelleFrameButtonConfiguration();
         tabelleFrameTableConfiguration();
+        
+        TabelleFrame.tabelTab.removeMouseListener(mouseListener);
+        TabelleFrame.tabelTab.setIcon(butIcon2);
+        
         explorerJLabel.setText("EXPLORER");
     }
 }
