@@ -20,19 +20,28 @@ public class MainFrame extends JFrame {
     public static int counting = 0;
     public static int max = 0;
     public static JButton tabelTab = new JButton();
-    public static JButton schButton = new JButton();
+    public JButton schButton = new JButton();
     public static JTable jTable1 = new JTable();
     public static DefaultTableModel jTable = (DefaultTableModel) jTable1.getModel();
     public static JScrollPane jTable1ScrollPane = new JScrollPane(jTable1);
     public static JMenuBar jMenuBar = new JMenuBar();
     public static JLabel sideLabel = new JLabel();
     public static JLabel sidePlorer = new JLabel();
-    public static JButton newPwbut = new JButton();
+    public JButton newPwbut = new JButton();
     public static JButton exitButton = new JButton();
     public static JLabel iconLabel = new JLabel();
     public static ImageIcon iconLabelIcon = new ImageIcon("images\\key.png");
     public  Container cp = getContentPane();
-
+    private static int tableTabY = 35;
+    public static ImageIcon butIcon = new ImageIcon("images\\tableTabIcon1.png");
+    public static ImageIcon butIcon2 = new ImageIcon("images\\tableTabIcon2.png"); //#C0C0C0
+    public static ImageIcon seekButIcon = new ImageIcon("images\\seekIcon1.png");
+    public static ImageIcon seekButIcon2 = new ImageIcon("images\\seekIcon2.png"); 
+    public static JLabel activeLabel = new JLabel();
+    public static JButton seekButton = new JButton();
+    private static MouseListener mouseListenerExplorer = new MouseAdapter() {};
+    private static MouseListener mouseListenerSeek = new MouseAdapter() {};
+    public static JLabel explorerJLabel = new JLabel();
 
     public MainFrame(){
         super();
@@ -64,9 +73,9 @@ public class MainFrame extends JFrame {
         cp.add(jFrameConfig.explorerJLabel);
 
         jMenuBar.add(iconLabel);
-        cp.add(jFrameConfig.activeLabel);
+        cp.add(activeLabel);
 
-        jFrameConfig.tabelleFrameButtonConfiguration();
+        jFrameConfig.mainFrameButtonConfiguration();
 
         tabelTab.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent evt) { 
@@ -75,6 +84,30 @@ public class MainFrame extends JFrame {
         });
         cp.add(tabelTab);
 
+
+
+
+        schButton.setBounds(75, 80, 200, 50);
+        schButton.setText("> Aktualisieren");
+        schButton.setMargin(new Insets(2, 2, 2, 2));
+        schButton.setForeground(new Color(169,169,169));
+        schButton.setFont(new Font("Arial", Font.PLAIN, 19));
+        schButton.setHorizontalAlignment(SwingConstants.LEFT);
+        schButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                schButton.setContentAreaFilled(true);
+                schButton.setBackground(new Color(33, 43, 43));
+            }
+        
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                schButton.setBackground(UIManager.getColor("control"));
+                schButton.setContentAreaFilled(false);
+            }
+        });
+        schButton.setOpaque(false);
+        schButton.setBorderPainted(false);
+        schButton.setContentAreaFilled(false);
+        schButton.setVisible(true);
         schButton.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent evt) { 
                 schButton_ActionPerformed(evt);
@@ -82,11 +115,36 @@ public class MainFrame extends JFrame {
         });
         cp.add(schButton);
 
+
+
+
+        newPwbut.setBounds(75, 120, 200, 50);
+        newPwbut.setText("> Neues Passwort");
+        newPwbut.setMargin(new Insets(2, 2, 2, 2));
+        newPwbut.setForeground(new Color(169,169,169));
+        newPwbut.setFont(new Font("Arial", Font.PLAIN, 19));
+        newPwbut.setHorizontalAlignment(SwingConstants.LEFT);
+        newPwbut.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                newPwbut.setContentAreaFilled(true);
+                newPwbut.setBackground(new Color(33, 43, 43));
+            }
+        
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                newPwbut.setBackground(UIManager.getColor("control"));
+                newPwbut.setContentAreaFilled(false);
+            }
+        });
+        newPwbut.setOpaque(false);
+        newPwbut.setBorderPainted(false);
+        newPwbut.setContentAreaFilled(false);
+        newPwbut.setVisible(true);
         newPwbut.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent evt) { 
                 newPwbut_ActionPerformed(evt);
             }
         });
+        
         cp.add(newPwbut);
 
         exitButton.addActionListener(new ActionListener() { 
@@ -94,12 +152,12 @@ public class MainFrame extends JFrame {
                 exitButton_ActionPerformed(evt);
             }
         });
-        jFrameConfig.seekButton.addActionListener(new ActionListener() { 
+        seekButton.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent evt) { 
                 seekButton_ActionPerformed(evt);
             }
         });
-        cp.add(jFrameConfig.seekButton);
+        cp.add(seekButton);
         
         cp.add(sideLabel);
         cp.add(sidePlorer);
@@ -110,7 +168,7 @@ public class MainFrame extends JFrame {
         jTable.setRowCount(counting);
         jTable.setColumnCount(2);
 
-        jFrameConfig.tabelleFrameTableConfiguration();
+        jFrameConfig.mainFrameTableConfiguration();
 
         int rowCount = jTable.getRowCount();
 
@@ -148,15 +206,12 @@ public class MainFrame extends JFrame {
         new MainFrame();
         
     }
-    public static void aktivitaetLesen(int c){
+    public void aktivitaetLesen(int c){
         String zeile = "";
         text = " ";
         int i = 0;
         c = c + 2;
         try(BufferedReader reader = new BufferedReader(new FileReader("data\\aktivitaet"))){
-        /*FileReader filereader = new FileReader ("aktivitaet");
-        BufferedReader reader = new BufferedReader (filereader);*/
-            
             while ((zeile = reader.readLine()) != null){
                 i++;
                 if(i == c){ 
@@ -164,21 +219,17 @@ public class MainFrame extends JFrame {
                 }
                 
             }
-            
-            
         }
         catch(Exception leseFehler){
         System.err.println(leseFehler);
         }
     }
-    public static void pwLesen(int b){
+    public void pwLesen(int b){
         String zeile = "";
         text = " ";
         int i = 0;
         b = b + 2;
         try(BufferedReader reader = new BufferedReader(new FileReader("data\\pw"))){
-        /*FileReader filereader = new FileReader ("pw");
-        BufferedReader reader = new BufferedReader (filereader);*/
             
             while ((zeile = reader.readLine()) != null){
                 i++;
@@ -188,14 +239,13 @@ public class MainFrame extends JFrame {
                 }
                 
             }
-            
-            
+
         }
         catch(Exception leseFehler){
         System.err.println(leseFehler);
         }
     }
-    public static void zeilenCount(){
+    public void zeilenCount(){
         
         try(BufferedReader reader = new BufferedReader(new FileReader("data\\aktivitaet"))){
             
@@ -209,8 +259,6 @@ public class MainFrame extends JFrame {
         }
     }
 
-
-    
     public void schButton_ActionPerformed(ActionEvent evt) {
         Object sValue = jTable1.getValueAt(max, 0);
         String scValue = (String) sValue;
@@ -234,12 +282,80 @@ public class MainFrame extends JFrame {
                     System.out.println("Exception occurred: " + e.getMessage());
 
                 }
+                
                 dispose();
                 new MainFrame();
                 
             }
         }
     }
+    public static void explorerHover(){
+
+        mouseListenerExplorer = new MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                MainFrame.tabelTab.setIcon(butIcon2);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                MainFrame.tabelTab.setIcon(butIcon);
+            }
+        };
+        MainFrame.tabelTab.addMouseListener(mouseListenerExplorer);
+    }
+    public static void seekHover(){
+        mouseListenerSeek = new MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                seekButton.setIcon(seekButIcon2);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                seekButton.setIcon(seekButIcon);
+            }
+        };
+        seekButton.addMouseListener(mouseListenerSeek);
+    }
+    public void ToSeek(){
+
+        tableTabY = 120;
+        activeLabelChange();
+
+        MainFrame.tabelTab.setIcon(butIcon);
+        explorerHover();
+
+        
+        schButton.setVisible(false);
+        newPwbut.setVisible(false);
+        jTable1ScrollPane.setVisible(false);
+        seekButton.removeMouseListener(mouseListenerSeek);
+        seekButton.setIcon(seekButIcon2);
+        
+        explorerJLabel.setText("SUCHEN");                               //hier krachts
+    }
+    public void ToExplorer(){
+        
+        tableTabY = 35;
+        activeLabelChange();
+
+        seekButton.setIcon(seekButIcon);
+        
+        /*jFrameConfig.mainFrameButtonConfiguration();
+        jFrameConfig.mainFrameTableConfiguration();*/
+        schButton.setVisible(true);
+        newPwbut.setVisible(true);
+        jTable1ScrollPane.setVisible(true);
+        
+        MainFrame.tabelTab.removeMouseListener(mouseListenerExplorer);
+        MainFrame.tabelTab.setIcon(butIcon2);
+        
+        explorerJLabel.setText("EXPLORER");
+    }
+    public static void activeLabelChange(){
+        
+        activeLabel.setBounds(0,tableTabY,2,75);
+        activeLabel.setBackground(new Color(192,192,192));
+        activeLabel.setOpaque(true);
+    }
+
+
+
     public void newPwbut_ActionPerformed(ActionEvent evt) {
         dispose();
         new QuestionFrame();
@@ -248,9 +364,9 @@ public class MainFrame extends JFrame {
         System.exit(0);
     }
     public void tabelTab_ActionPerformed(ActionEvent evt) {
-        jFrameConfig.ToExplorer();
+        ToExplorer();
     }
     public void seekButton_ActionPerformed(ActionEvent evt) {
-        jFrameConfig.ToSeek();
+        ToSeek();
     }
 }

@@ -10,17 +10,8 @@ import javax.swing.*;
 public class jFrameConfig {
 
     public static JLabel explorerJLabel = new JLabel();
-    public static JButton seekButton = new JButton();
     private static Component glue = Box.createHorizontalGlue();
-    private static MouseListener mouseListenerExplorer = new MouseAdapter() {};
-    private static MouseListener mouseListenerSeek = new MouseAdapter() {};
-    private static ImageIcon butIcon = new ImageIcon("images\\tableTabIcon1.png");
-    private static ImageIcon butIcon2 = new ImageIcon("images\\tableTabIcon2.png"); //#C0C0C0
-    private static ImageIcon seekButIcon = new ImageIcon("images\\seekIcon1.png");
-    private static ImageIcon seekButIcon2 = new ImageIcon("images\\seekIcon2.png"); 
     public static JTextField seekField = new JTextField();
-    public static JLabel activeLabel = new JLabel();
-    private static int tableTabY = 35;
     public static void main(String [] args){
 
     }
@@ -54,65 +45,19 @@ public class jFrameConfig {
         explorerJLabel.setVerticalAlignment(SwingConstants.CENTER);
         explorerJLabel.setOpaque(true);
 
-        activeLabelChange();
+        MainFrame.activeLabelChange();
        
     }
 
-    public static void tabelleFrameButtonConfiguration(){
+    public static void mainFrameButtonConfiguration(){
 
-        MainFrame.tabelTab.setBounds(0, tableTabY, 75, 75);
-        MainFrame.tabelTab.setIcon(butIcon2);
+        MainFrame.tabelTab.setBounds(0, 35, 75, 75);
+        MainFrame.tabelTab.setIcon(MainFrame.butIcon2);
         MainFrame.tabelTab.setMargin(new Insets(2, 2, 2, 2));
         MainFrame.tabelTab.setOpaque(false);
         MainFrame.tabelTab.setBorderPainted(false);
         MainFrame.tabelTab.setContentAreaFilled(false);
-        
-       
         MainFrame.tabelTab.setVisible(true);
-
-        MainFrame.schButton.setBounds(75, 80, 200, 50);
-        MainFrame.schButton.setText("> Aktualisieren");
-        MainFrame.schButton.setMargin(new Insets(2, 2, 2, 2));
-        MainFrame.schButton.setForeground(new Color(169,169,169));
-        MainFrame.schButton.setFont(new Font("Arial", Font.PLAIN, 19));
-        MainFrame.schButton.setHorizontalAlignment(SwingConstants.LEFT);
-        MainFrame.schButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                MainFrame.schButton.setContentAreaFilled(true);
-                MainFrame.schButton.setBackground(new Color(33, 43, 43));
-            }
-        
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                MainFrame.schButton.setBackground(UIManager.getColor("control"));
-                MainFrame.schButton.setContentAreaFilled(false);
-            }
-        });
-        MainFrame.schButton.setOpaque(false);
-        MainFrame.schButton.setBorderPainted(false);
-        MainFrame.schButton.setContentAreaFilled(false);
-        MainFrame.schButton.setVisible(true);
-
-        MainFrame.newPwbut.setBounds(75, 120, 200, 50);
-        MainFrame.newPwbut.setText("> Neues Passwort");
-        MainFrame.newPwbut.setMargin(new Insets(2, 2, 2, 2));
-        MainFrame.newPwbut.setForeground(new Color(169,169,169));
-        MainFrame.newPwbut.setFont(new Font("Arial", Font.PLAIN, 19));
-        MainFrame.newPwbut.setHorizontalAlignment(SwingConstants.LEFT);
-        MainFrame.newPwbut.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                MainFrame.newPwbut.setContentAreaFilled(true);
-                MainFrame.newPwbut.setBackground(new Color(33, 43, 43));
-            }
-        
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                MainFrame.newPwbut.setBackground(UIManager.getColor("control"));
-                MainFrame.newPwbut.setContentAreaFilled(false);
-            }
-        });
-        MainFrame.newPwbut.setOpaque(false);
-        MainFrame.newPwbut.setBorderPainted(false);
-        MainFrame.newPwbut.setContentAreaFilled(false);
-        MainFrame.newPwbut.setVisible(true);
 
         ImageIcon exitButtonIcon = new ImageIcon("images\\x.png");
         MainFrame.exitButton.setIcon(exitButtonIcon);
@@ -138,15 +83,15 @@ public class jFrameConfig {
         MainFrame.jMenuBar.add(MainFrame.exitButton);
 
          //#C0C0C0
-        seekButton.setBounds(0, 120, 75, 75);
-        seekButton.setIcon(seekButIcon);
-        seekButton.setMargin(new Insets(2, 2, 2, 2));
-        seekButton.setOpaque(false);
-        seekButton.setBorderPainted(false);
-        seekButton.setContentAreaFilled(false);
-        seekHover();
+         MainFrame.seekButton.setBounds(0, 120, 75, 75);
+         MainFrame.seekButton.setIcon( MainFrame.seekButIcon);
+         MainFrame.seekButton.setMargin(new Insets(2, 2, 2, 2));
+         MainFrame.seekButton.setOpaque(false);
+         MainFrame.seekButton.setBorderPainted(false);
+         MainFrame.seekButton.setContentAreaFilled(false);
+        MainFrame.seekHover();
     }
-    public static void tabelleFrameTableConfiguration(){
+    public static void mainFrameTableConfiguration(){
         MainFrame.jTable1ScrollPane.setBounds(400, 75, 1395, 880);
         MainFrame.jTable1.getColumnModel().getColumn(0).setHeaderValue("Aktivitaet");
         MainFrame.jTable1.getColumnModel().getColumn(1).setHeaderValue("Password");
@@ -172,75 +117,5 @@ public class jFrameConfig {
 
         MainFrame.jTable1ScrollPane.setVisible(true);
     }
-    public static void explorerHover(){
 
-        mouseListenerExplorer = new MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                //TabelleFrame.tabelTab.setContentAreaFilled(true);
-                MainFrame.tabelTab.setIcon(butIcon2);
-            }
-        
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                //TabelleFrame.tabelTab.setBackground(UIManager.getColor("control"));
-                MainFrame.tabelTab.setIcon(butIcon);
-                //TabelleFrame.tabelTab.setContentAreaFilled(false);
-            }
-        };
-        MainFrame.tabelTab.addMouseListener(mouseListenerExplorer);
-    }
-
-    public static void seekHover(){
-        mouseListenerSeek = new MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                //TabelleFrame.tabelTab.setContentAreaFilled(true);
-                seekButton.setIcon(seekButIcon2);
-            }
-        
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                //TabelleFrame.tabelTab.setBackground(UIManager.getColor("control"));
-                seekButton.setIcon(seekButIcon);
-                //TabelleFrame.tabelTab.setContentAreaFilled(false);
-            }
-        };
-        seekButton.addMouseListener(mouseListenerSeek);
-    }
-
-    public static void ToSeek(){
-
-        tableTabY = 120;
-        activeLabelChange();
-
-        MainFrame.tabelTab.setIcon(butIcon);
-        explorerHover();
-
-        
-        MainFrame.schButton.setVisible(false);
-        MainFrame.newPwbut.setVisible(false);
-        MainFrame.jTable1ScrollPane.setVisible(false);
-        seekButton.removeMouseListener(mouseListenerSeek);
-        seekButton.setIcon(seekButIcon2);
-        
-        explorerJLabel.setText("SUCHEN");                               //hier krachts
-    }
-    public static void ToExplorer(){
-        
-        tableTabY = 35;
-        activeLabelChange();
-
-        seekButton.setIcon(seekButIcon);
-        
-        tabelleFrameButtonConfiguration();
-        tabelleFrameTableConfiguration();
-        
-        MainFrame.tabelTab.removeMouseListener(mouseListenerExplorer);
-        MainFrame.tabelTab.setIcon(butIcon2);
-        
-        explorerJLabel.setText("EXPLORER");
-    }
-    public static void activeLabelChange(){
-        
-        activeLabel.setBounds(0,tableTabY,2,75);
-        activeLabel.setBackground(new Color(192,192,192));
-        activeLabel.setOpaque(true);
-    }
 }

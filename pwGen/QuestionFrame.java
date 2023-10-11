@@ -24,7 +24,8 @@ public class QuestionFrame extends JFrame implements FocusListener{
 
     public QuestionFrame(){
         super();
-        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         int frameWidth = 500;
         int frameHeight = 250;
         setSize(frameWidth, frameHeight);
@@ -58,7 +59,7 @@ public class QuestionFrame extends JFrame implements FocusListener{
     }
     public static void main(String [] args) {
 
-        //new QuestionFrame();
+        new QuestionFrame();
         
     
     }
@@ -113,7 +114,7 @@ public class QuestionFrame extends JFrame implements FocusListener{
         new FehlerCodeFrame();
        }
         
-       
+       dispose();
 	}
 
     
